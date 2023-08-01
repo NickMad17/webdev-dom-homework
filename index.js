@@ -110,7 +110,7 @@ const postAPI = (inputText,inputName) => {
                 postAPI(inputName,inputText);
                 warn(err, "Ошибка сервера")
             }   else{
-                addError(err)
+                addError('Кажется что-то пошло не так')
                 warn(err);
             }
         })
