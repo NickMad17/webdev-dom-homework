@@ -43,8 +43,10 @@ let commentators = [];
 let isAnswer = "";
 // массив людей оставивших комменты
 const getAPI = () => {
-    loud = true;
-    formRender();
+    if(!loud){
+        loud = true;
+        formRender();
+    }
     return fetch(
         URL_API,
         {
@@ -78,6 +80,8 @@ const postAPI = (inputText,inputName) => {
     })
         .then(res => {
             if(res.status === 201 || res.status === 200){
+                loud = true;
+                formRender();  
                 return res;
             } else if(res.status === 500){
                 return Promise.reject(500);
@@ -111,7 +115,7 @@ const postAPI = (inputText,inputName) => {
                 warn(err, "Ошибка сервера")
             }   else{
                 addError('Кажется что-то пошло не так')
-                warn(err);
+                warn(err,'Неизвестная ошибка');
             }
         })
         
@@ -346,7 +350,6 @@ function renderClickBtn () {
         btnErrAdd()
         return;
     }
-    
 
     // formBg.classList.remove('comment-new-bg');
     // inputText.placeholder = 'Введите ваш коментарий'
