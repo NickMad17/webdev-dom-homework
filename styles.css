@@ -8,12 +8,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: 80px;
   padding-bottom: 200px;
   background: #202020;
   min-height: 100vh;
 }
-
 .comments,
 .comment {
   margin: 0;
@@ -178,27 +178,54 @@ body {
 }
 
 .del:hover{
-  background: linear-gradient(90deg, #7334ea, #bcec30) ;
+  background: linear-gradient(90deg, rgb(183, 46, 62), #7334ea);
   box-shadow: 0px 0px 5px #0000009c ;
   animation: uppTwo 0.4s ease;
   transform:scale(1.10);
 }
 
 .error {
-  background: linear-gradient(90deg, rgb(183, 46, 62), #7334ea) !important;;
+  background: linear-gradient(90deg, rgb(183, 46, 62), #7334ea);
   color: white;
+  animation: opasity-in 0.4s ease-in;
 }
+
+.err-container{
+  position: relative;
+  z-index: 10;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  transform: translateY(-44.5%) scale(0);
+  transition: 0.4s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: none;
+}
+
+.error-active{
+  transform: translateY(0) scale(100%);
+  animation: opasity-in 0.4s ease-in;
+}
+
+.error-window{
+  background: linear-gradient(20deg, #4203CE, rgb(169, 2, 14));
+  min-height: 250px;
+  color: #ffffff;
+  border: #000000 2px solid;
+}
+
+.error__text{
+  font-size: 32px;
+}
+
 
 .btn-error {
   background: #575656;
   color: rgba(0, 0, 0, 0.21);
   animation: btn-null .3s ease;
-}
-
-.btn-complete{
-  background: #00fffb;
-  color: rgba(0, 0, 0, 0.21);
-  transition: all 0.5s ease-in-out;
 }
 
 .del-card{
@@ -259,6 +286,16 @@ body {
       background: rgba(176, 17, 17, 0.46);
   }
 }
+
+@keyframes opasity-in{
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 
 @keyframes btn-null {
   0% { transform: rotate(0deg); }

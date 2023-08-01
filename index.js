@@ -1,9 +1,10 @@
-const {log} = console;
+const {log, error,warn} = console;
 // ------------------
 "use strict"
 // Добавляем ДОМ элементы
 const formBg = document.querySelector('.add-form'); 
 let loud = false;
+const URL_API = 'https://wedev-api.sky.pro/api/v1/:nikea/comments'
 
 // рендерим форму отправки
 const formRender =  () => {
@@ -42,11 +43,10 @@ let commentators = [];
 let isAnswer = "";
 // массив людей оставивших комменты
 const getAPI = () => {
-    if(!loud){
-        loud = true;
-        formRender()
-    }
-    return fetch('https://wedev-api.sky.pro/api/v1/:nikitea/comments',
+    loud = true;
+    formRender();
+    return fetch(
+        URL_API,
         {
             method: "GET"
         })
@@ -54,6 +54,7 @@ const getAPI = () => {
         .then(dataJson => {
             commentators = dataJson.comments;
             renderComments();
+            return dataJson
         })
         .then(() => {
             loud = false;
@@ -65,17 +66,55 @@ getAPI()
 
 
 const postAPI = (inputText,inputName) => {
-    return fetch('https://wedev-api.sky.pro/api/v1/:nikitea/comments',
+    return fetch(
+        URL_API,
     {
         method: "POST",
         body: JSON.stringify({
             text: inputText.value,
-            name: inputName.value
+            name: inputName.value,
+            forceError: true,
         })
     })
-        .then(() => {
-            getAPI();
+        .then(res => {
+            if(res.status === 201 || res.status === 200){
+                return res;
+            } else if(res.status === 500){
+                return Promise.reject(500);
+            } else if(res.status === 400){
+                return Promise.reject(400);
+            } else {
+                return Promise.reject('Неизвестная ошибка');
+            }
         })
+        .then(() => {
+            return getAPI();
+        })
+        .then(() => {
+            return renderComments();
+        })
+        .catch((err) => {
+            log(err);
+            if(err === 400){
+                addError('Имя и коментарий должны быть меньше трех символов')
+                if(inputName.value.length < 3 && inputText.value.length < 3){
+                    inputName.classList.add('error');
+                    inputText.classList.add('error');
+                } else if (inputText.value.length < 3){
+                    inputText.classList.add('error');
+                } else {
+                    inputName.classList.add('error');
+                }
+                warn(err, "Ошибка ввода");
+            } else if(err === 500){
+                postAPI(inputName,inputText);
+                warn(err, "Ошибка сервера")
+            }   else{
+                addError(err)
+                warn(err);
+            }
+        })
+        
 }
 
 
@@ -109,6 +148,19 @@ const postAPI = (inputText,inputName) => {
 // ]
 
 // Вспомогательные функции
+
+function addError(text){
+    const errorForm = document.querySelector('.err-container');
+    const delErr = document.querySelector('.del');
+    const textEl = document.querySelector('.error__text')
+    errorForm.classList.add('error-active');
+    textEl.textContent = text;
+    delErr.addEventListener('click', (e) => {
+    errorForm.classList.remove('error-active');
+    })
+
+}
+
 const addDate = (date) =>{
     date = new Date(date);
     let time = {
@@ -122,31 +174,6 @@ const addDate = (date) =>{
     }
 
     return  date.toLocaleString("ru", year) + " " + date.toLocaleString('ru', time);
-}
-
-
-const getDelCard = (element) => {
-    setTimeout(() => {
-        element.closest('.comment').classList.add('del-card');
-    }, 300)
-    element.classList.remove('del');
-    element.classList.add('exet-del');
-}
-
-const commentDel = () => {
-    const btnFormElement = document.querySelectorAll(".del");
-    btnFormElement.forEach((element) => {
-        element.addEventListener('click', (e) => {
-            e.stopPropagation();
-            getDelCard(element);
-            setTimeout(() => {
-                const indexElement = element.dataset.index;
-                commentators.splice(indexElement, 1);
-                renderComments()
-            },800)
-
-        })
-    })
 }
 
 const answComment = () => {
@@ -168,7 +195,7 @@ const answComment = () => {
 // Функция добавления лайка
 function addLike () {
     const like = document.querySelectorAll('.like-button');
-    log(like)
+
     Array.from(likeElement).forEach((element,index) => {
         element.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -203,13 +230,10 @@ const clickEventEditComment = () => {
     redirectElements.forEach((redirectElement, indexEl) => {
         redirectElement.addEventListener('click', (e) => {
             e.stopPropagation();
-            log(redirectElement.innerHTML); 
             const index = redirectElement.dataset.index;
             const comment =  commentators[index];
-            log(comment);
             if (comment.isEdit) {
                 const edit = document.querySelector('.add-edit');
-                log(edit);
                 comment.text = edit.value;
                 if (comment.text.length === 0) {
                     commentators.splice(index,1);
@@ -232,8 +256,6 @@ const clickEventEditComment = () => {
     }
 
 
-// Рендер
-
 const getLikeClass = (element) => {
     return element ? "like-button -active-like" : "like-button";
 }
@@ -243,7 +265,6 @@ const getLikeClass = (element) => {
 const renderComments = () => {
     const commentatorsHtml = commentators.map((commentator, index) => {
         return `<li id="#form" class="comment ">
-        <i class='bx bx-x del' data-index="${index}"></i>
       <div class="comment-header">
         <div>${commentator.author.name}</div>
         <div>${addDate(commentator.date)}</div>
@@ -294,9 +315,14 @@ function renderClickBtn () {
         },500)
     }
 
-    // function btnCompete () {
-    //     btnElement.classList.add("btn-complete");
-    // }
+    function eraseInput(input) {
+        input.addEventListener('input', () => {
+            input.classList.remove('error');
+        })
+    }
+
+    eraseInput(inputName);
+    eraseInput(inputText);
 
     btnElement.addEventListener( 'click', () => {
     inputText.classList.remove("error");
@@ -324,8 +350,6 @@ function renderClickBtn () {
 
     // formBg.classList.remove('comment-new-bg');
     // inputText.placeholder = 'Введите ваш коментарий'
-    loud = true;
-    formRender();
 
     postAPI(inputText,inputName);
     
@@ -344,7 +368,7 @@ function renderClickBtn () {
     // )
     // btnCompete()
 
-    renderComments();
+    
 
 })
 }
