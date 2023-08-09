@@ -1,11 +1,11 @@
 
 import { addDisplayNone, remuveDisplayNone } from "./displayNone.js";
 import * as api from "./apiVars.js";
-import { renderComments } from "./renderComments.js";
 import { postAPI} from "./api.js";
-const inputName = document.getElementById("nameTextId");
-const inputText = document.getElementById("commentTextId");
+
 export function renderClickBtn (commentators) {
+    const inputName = document.getElementById("nameTextId");
+    const inputText = document.getElementById("commentTextId");
     const btnElement = document.getElementById("btnId");
 
     function btnErrAdd () {

@@ -4,8 +4,7 @@ import { addLike } from "./addLike.js";
 const cardElements = document.getElementById("commentsId");
 
 function renderComments (commentators) {
-
-    const test = (index) =>{
+  const test = (index) =>{
         if (index === commentators[commentators.length - 2]) {
             return true;
         }

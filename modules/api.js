@@ -23,7 +23,7 @@ const getAPI = (commentators) => {
         })
 }
 
-const postAPI = (inputText,inputName) => {
+const postAPI = (inputName,inputText,commentators) => {
 
     function addError(text){
         const errorForm = document.querySelector('.err-container');
@@ -67,9 +67,6 @@ const postAPI = (inputText,inputName) => {
         })
         .then(() => {
             return getAPI(commentators);
-        })
-        .then(() => {
-            return renderComments(commentators);
         })
         .then(() => {
             inputName.value = "";

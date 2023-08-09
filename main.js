@@ -1,6 +1,8 @@
 import {getAPI, postAPI} from "./modules/api.js";
 import { renderComments} from "./modules/renderComments.js";
 import { renderClickBtn } from "./modules/renderClickBtn.js";
+import { commentators } from "./modules/comentators.js";
+
 const {log, warn} = console;
 // ------------------
 "use strict"
@@ -11,7 +13,6 @@ const {log, warn} = console;
 
 
 
-let commentators = []; 
 // let isAnswer = "";
 
 renderClickBtn(commentators);
