@@ -18,12 +18,29 @@
     <ul class="comments" id="commentsId">
         <!--comments on js-->
     </ul>  
-    <div class="new-form add-form" id="form">
+    <div class="louder">
+        <img class="louder" src="./loud.gif" alt="louding">
+    </div>
+    <div class=" add-form display-none" id="form">
     <!-- render -->
-    <img class="louder" src="./loud.gif" alt="louding">
+        <input
+        type="text"
+        class="add-form-name"
+        placeholder="Введите ваше имя"
+        id="nameTextId"
+        />
+        <textarea
+                type="textarea"
+                class="add-form-text"
+                placeholder="Введите ваш коментарий"
+                rows="4"
+                id="commentTextId"
+        ></textarea>
+        <div class="add-form-row">
+            <button class="add-form-button" id="btnId">Написать</button>
+        </div>
     </div>
 </div>
 </body>
-    
-<script src="index.js"></script>
+<script src="main.js" type="module"></script>
 </html>

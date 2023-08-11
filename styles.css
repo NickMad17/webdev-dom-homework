@@ -207,7 +207,7 @@ body {
 
 .error-active{
   transform: translateY(0) scale(100%);
-  animation: opasity-in 0.4s ease-in;
+  animation: opasity-in 0.4s ease-in-out;
 }
 
 .error-window{
@@ -215,10 +215,14 @@ body {
   min-height: 250px;
   color: #ffffff;
   border: #000000 2px solid;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .error__text{
-  font-size: 32px;
+  font-size: 28px;
+  font-weight: 700;
 }
 
 
@@ -264,6 +268,9 @@ body {
   animation: like 0.4s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
+.display-none{
+  display: none;
+}
 
 @keyframes like {
   0% {
