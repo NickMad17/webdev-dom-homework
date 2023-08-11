@@ -43,6 +43,7 @@ const postAPI = (inputName,inputText,commentators) => {
         body: JSON.stringify({
             text: inputText.value,
             name: inputName.value,
+            forceError: true,
 
         })
     })
@@ -52,16 +53,11 @@ const postAPI = (inputName,inputText,commentators) => {
                 addDisplayNone(api.louder);
                 return res;
             } else if(res.status === 500){
-                remuveDisplayNone(api.form);
-                addDisplayNone(api.louder);
                 return Promise.reject(500);
             } else if(res.status === 400){
-                remuveDisplayNone(api.form);
-                addDisplayNone(api.louder);
+                
                 return Promise.reject(400);
             } else {
-                remuveDisplayNone(api.form);
-                addDisplayNone(api.louder);
                 return Promise.reject('Неизвестная ошибка');
             }
         })
@@ -74,6 +70,8 @@ const postAPI = (inputName,inputText,commentators) => {
         })
         .catch((err) => {
             if(err === 400){
+                remuveDisplayNone(api.form);
+                addDisplayNone(api.louder);
                 addError('Имя и коментарий должны быть не меньше трех символов')
                 if(inputName.value.length < 3 && inputText.value.length < 3){
                     inputName.classList.add('error');
@@ -88,6 +86,8 @@ const postAPI = (inputName,inputText,commentators) => {
                 postAPI(inputName,inputText);
                 warn(err, "Ошибка сервера")
             }   else{
+                remuveDisplayNone(api.form);
+                addDisplayNone(api.louder);
                 addError('Кажется что-то пошло не так')
                 warn(err,'Неизвестная ошибка');
                 inputName.classList.add('error');
