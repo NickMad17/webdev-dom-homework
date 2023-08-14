@@ -272,6 +272,103 @@ body {
   display: none;
 }
 
+/* Sign in and Singn upp */
+
+.login-container {
+  background: radial-gradient(87.42% 75.42% at 50% 42.37%, rgb(0 0 0) 2.92%, #7334ea 88%);
+
+  /* transform: translate(-50%, -50%); */
+  /* position: fixed; */
+  /* left: 50%; */
+  /* top: 50%; */
+  /* background-color: #fff; */
+  padding: 6% 30%;
+  text-align: center;
+  min-height: 100vh;
+  
+  /* Добавлено для задания ширины */
+}
+
+.login-title {
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 30px;
+  padding: 40px;
+  border-radius: 20px;
+}
+
+.login-text{
+  color: #ffffff;
+  font-size: 25px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.login-label {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 25px;
+}
+
+.login-input {
+  color: #000000;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+
+  border-radius: 30px;
+  font-size: 25px;
+  text-align: center;
+
+}
+
+.login-button {
+  margin-top: 20px;
+  color: #ffffff;
+  background-color: #bcec30;
+  transition: .5s;
+  color: #000000;
+  border: none;
+  padding: 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
+.login-button:hover {
+  background-color: #88a62f;
+}
+
+.login{
+  color: #3700ac;
+  cursor: pointer;
+  transition: .5s ;
+}
+
+.login:hover{
+  color: #3700aca0;
+
+}
+
+.submit-noregister{
+  background: #202020;
+  color: #ffffff;
+  border: 1px #ffffff solid;
+  transition: 0.5s;
+}
+
+.submit-noregister:hover{
+  background: #20202077;
+}
+
+
+
 @keyframes like {
   0% {
     -webkit-transform: rotateY(0);

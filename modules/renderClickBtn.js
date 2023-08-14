@@ -1,9 +1,6 @@
-
 import { addDisplayNone, remuveDisplayNone } from "./displayNone.js";
-import * as api from "./apiVars.js";
-import { postAPI} from "./api.js";
-
-export function renderClickBtn (commentators) {
+import { postAPI } from "./api.js";
+export function renderClickBtn () {
     const inputName = document.getElementById("nameTextId");
     const inputText = document.getElementById("commentTextId");
     const btnElement = document.getElementById("btnId");
@@ -46,13 +43,12 @@ export function renderClickBtn (commentators) {
         btnErrAdd()
         return;
     }
-
-    console.log(commentators)
-
     // formBg.classList.remove('comment-new-bg');
     // inputText.placeholder = 'Введите ваш коментарий'
-    addDisplayNone(api.form);
-    remuveDisplayNone(api.louder);
+    const form = document.querySelector('.add-form');
+    const louder = document.querySelector('.louder');
+    addDisplayNone(form);
+    remuveDisplayNone(louder);
     postAPI(inputName,inputText);
 })
 }
