@@ -121,6 +121,8 @@ body {
 }
 
 .add-form-name {
+  color: #ffffff;
+  background: #202020;
   width: 300px;
   padding: 11px 22px;
 }
@@ -346,13 +348,14 @@ body {
 }
 
 .login{
-  color: #3700ac;
+  padding: 9px;
+  color: #bcec30;
   cursor: pointer;
   transition: .5s ;
 }
 
 .login:hover{
-  color: #3700aca0;
+  color: #bdec308b;
 
 }
 

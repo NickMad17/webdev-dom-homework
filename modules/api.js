@@ -1,7 +1,6 @@
 import * as api from "./apiVars.js";
 import { addDisplayNone, remuveDisplayNone } from "./displayNone.js";
 import { renderComments, renderNoRegisterComments } from "./renderComments.js";
-import renderUpp from "../renderApp.js";
 const {log, warn} = console;
 
 let myToken;
@@ -64,8 +63,8 @@ const postAPI = (inputName,inputText,commentators) => {
         },
         body: JSON.stringify({
             name: inputName.value,
-            text: inputText.value
-
+            text: inputText.value,
+            forceError: true
         })
     })
         .then(res => {
@@ -153,7 +152,6 @@ const loginAPI = (loginName, password) => {
             })
         })
         .then(data => {
-            log(data.status)
             if(data.status !== 201 && data.status !== 200){
                 return new Promise.reject(data.status);
             }
@@ -177,6 +175,16 @@ const loginAPI = (loginName, password) => {
 }
 
 const registerAPI = (loginName, name, password) => {
+    function addError(text){
+        const errorForm = document.querySelector('.err-container');
+        const delErr = document.querySelector('.del');
+        const textEl = document.querySelector('.error__text')
+        errorForm.classList.add('error-active');
+        textEl.textContent = text;
+        delErr.addEventListener('click', (e) => {
+        errorForm.classList.remove('error-active');
+        })
+    }
     return fetch(
         api.URL_Registration,
         {
@@ -184,7 +192,7 @@ const registerAPI = (loginName, name, password) => {
             body: JSON.stringify({
                 login: loginName.value,
                 name: name.value,
-                password: password.value
+                password: password.value,
             })
         })
         .then(data => {
@@ -195,6 +203,7 @@ const registerAPI = (loginName, name, password) => {
             return data.json()
         })
         .then(data => {
+            log(loginName, name, password)
             const {user} = data;
             return [user.token, user.name];
         })
@@ -206,7 +215,8 @@ const registerAPI = (loginName, name, password) => {
         .catch(() => {
             loginName.classList.add('error');
             password.classList.add('error');
-            addError('Что-то пошло не так');
+            name.classList.add('error');
+            addError('Такой пользователь уже существует');
             return false
         })
         

@@ -20,8 +20,7 @@ function renderUpp (turnOff) {
         class="add-form-name"
         placeholder="Введите ваше имя"
         id="nameTextId"
-        disabled
-        value="${myName}"
+        readonly        value="${myName}"
         />
         <textarea
                 type="textarea"
@@ -54,7 +53,6 @@ getAPI(commentators);
     renderClickBtn();
     } else {
         login(turnOff) 
-    
     }
 }
 
