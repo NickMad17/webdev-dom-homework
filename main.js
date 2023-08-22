@@ -1,2 +1,4 @@
+import { getRenderUppLocalStorage } from "./modules/localStorage.js";
 import renderUpp from "./renderApp.js";
-renderUpp(false);
+let localBool = getRenderUppLocalStorage();
+renderUpp(localBool);

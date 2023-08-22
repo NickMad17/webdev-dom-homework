@@ -3,6 +3,7 @@ import { renderComments} from "./modules/renderComments.js";
 import { renderClickBtn } from "./modules/renderClickBtn.js";
 import { commentators } from "./modules/comentators.js";
 import { login } from "./modules/registration.js";
+import { removeUserFromLocalStorage } from "./modules/localStorage.js";
 
 function renderUpp (turnOff) {
     const app = document.querySelector('.app');
@@ -32,7 +33,15 @@ function renderUpp (turnOff) {
         <div class="add-form-row">
             <button class="add-form-button" id="btnId">Написать</button>
         </div>
-</div>`;
+        <btn class="x">Выйти</btn>
+
+</div>
+`;
+const exitEl = document.querySelector('.x');
+    exitEl.addEventListener('click', ()  => {
+        removeUserFromLocalStorage();
+        renderUpp(false);
+    })
 
 getAPI(commentators);
     // const answComment = () => {
@@ -51,8 +60,10 @@ getAPI(commentators);
     // } 
     renderComments(commentators);
     renderClickBtn();
+
+    
     } else {
-        login(turnOff) 
+        login();
     }
 }
 

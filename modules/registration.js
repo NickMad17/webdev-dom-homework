@@ -1,7 +1,7 @@
 import renderUpp from "../renderApp.js";
 import {loginAPI, registerAPI} from "./api.js"
 import { renderNoRegisaterApp } from "./renderNoRegisterApp.js";
-function login (turnOff){
+function login (){
 
         // --------------------------------- Sign in -----------------------------------------
     const app = document.querySelector('.app');
