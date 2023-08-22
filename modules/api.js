@@ -1,15 +1,16 @@
 import * as api from "./apiVars.js";
 import { addDisplayNone, remuveDisplayNone } from "./displayNone.js";
+import { saveUserToLocalStorage, getUserTokenLocalStorage, getUserNameLocalStorage } from "./localStorage.js";
 import { renderComments, renderNoRegisterComments } from "./renderComments.js";
 const {log, warn} = console;
 
-let myToken;
+let myToken = getUserTokenLocalStorage();
 
 const readingToken = (newToken) =>{
     myToken = newToken;
 }
 
-let myName;
+let myName = getUserNameLocalStorage();
 
 const readingName = (newName) =>{
     myName = newName;
@@ -159,6 +160,7 @@ const loginAPI = (loginName, password) => {
         })
         .then(data => {
             const {user} = data;
+            saveUserToLocalStorage([user.token, user.name, 'true']);
             return [user.token, user.name];
         })
         .then((user) => {
@@ -203,8 +205,9 @@ const registerAPI = (loginName, name, password) => {
             return data.json()
         })
         .then(data => {
-            log(loginName, name, password)
+            log(loginName, name, password);
             const {user} = data;
+            saveUserToLocalStorage([user.token, user.name, 'true']);
             return [user.token, user.name];
         })
         .then((user) => {

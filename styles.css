@@ -370,6 +370,20 @@ body {
   background: #20202077;
 }
 
+.x {
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: #bcec30;
+  color: #000000;
+  border-radius: 20px;
+  font-size: 24px;
+}
+
+.x:hover{
+  cursor: pointer;
+  background: #88a62f;
+}
 
 
 @keyframes like {
