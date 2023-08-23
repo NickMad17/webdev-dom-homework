@@ -18,7 +18,7 @@ export function renderNoRegisaterApp () {
     getNoRegisterAPI(commentators).then(() => {
         addDisplayNone(louder);
         const container = document.querySelector('.container');
-        container.innerHTML += `<p class='login-text'>Чтобы полноченно использовайть приложение <span class="login">Войдите</span></p>`
+        container.innerHTML += `<p class='login-text'>Чтобы полноценно использовайть приложение<span class="login">Войдите</span></p>`
         const loginBtn = document.querySelector('.login');
         loginBtn.addEventListener('click', () => {
             login(false);

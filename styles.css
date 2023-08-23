@@ -122,7 +122,7 @@ body {
 
 .add-form-name {
   color: #ffffff;
-  background: #202020;
+  background: #16092da2;
   width: 300px;
   padding: 11px 22px;
 }
@@ -198,9 +198,8 @@ body {
   position: fixed;
   width: 100vw;
   height: 100vh;
-  transform: translateY(-44.5%) scale(0);
   transition: 0.4s ease-in-out;
-  display: flex;
+  display: none;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -208,8 +207,8 @@ body {
 }
 
 .error-active{
-  transform: translateY(0) scale(100%);
   animation: opasity-in 0.4s ease-in-out;
+  display: flex;
 }
 
 .error-window{
@@ -372,17 +371,18 @@ body {
 
 .x {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
   padding: 10px 20px;
-  background: #bcec30;
-  color: #000000;
   border-radius: 20px;
   font-size: 24px;
+  background: #16092d63;
+  transition: 0.4s ease;
 }
 
 .x:hover{
   cursor: pointer;
-  background: #88a62f;
+  background: #09011894;
+  color: #ffffffcc;
 }
 
 

@@ -1,3 +1,4 @@
+import { postAddLike } from "./api.js";
 
 const likeElement = document.getElementsByClassName("like-button");
 
@@ -14,6 +15,7 @@ export function addLike (commentators, renderComments) {
                     like[index].classList.remove('add-like');
                     commentator.isLiked = false;
                     commentator.likes -= 1;
+                    postAddLike(commentator.id);
                     renderComments(commentators);
                 },400)
                 
@@ -24,7 +26,8 @@ export function addLike (commentators, renderComments) {
                 like[index].classList.remove('add-like')
                 commentator.isLiked = true;
                 commentator.likes += 1;
-                renderComments(commentators)
+                postAddLike(commentator.id);
+                renderComments(commentators);
                 },400)
             }
 

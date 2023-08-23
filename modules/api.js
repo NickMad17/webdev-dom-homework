@@ -4,6 +4,8 @@ import { saveUserToLocalStorage, getUserTokenLocalStorage, getUserNameLocalStora
 import { renderComments, renderNoRegisterComments } from "./renderComments.js";
 const {log, warn} = console;
 
+let ADMIN_TOKEN = 'asb4c4boc86gasb4c4boc86g37w3cc3bo3b83k4g37k3bk3cg3c03ck4k'
+
 let myToken = getUserTokenLocalStorage();
 
 const readingToken = (newToken) =>{
@@ -32,6 +34,9 @@ const getAPI = (commentators) => {
         .then(data => data.json())
         .then(dataJson => {
             commentators = dataJson.comments;
+            if(ADMIN_TOKEN == myToken){                
+                `<i class="bx bx-x del" data-index="0"></i>`
+            }
             renderComments(commentators);
             return dataJson
         })
@@ -40,6 +45,7 @@ const getAPI = (commentators) => {
             addDisplayNone(louder);
         })
 }
+
 
 const postAPI = (inputName,inputText,commentators) => {
     const form = document.querySelector('.add-form');
@@ -93,7 +99,7 @@ const postAPI = (inputName,inputText,commentators) => {
             if(err === 400){
                 remuveDisplayNone(form);
                 addDisplayNone(louder);
-                addError('Имя и коментарий должны быть не меньше трех символов')
+                addError('Коментарий должен быть не меньше трех символов');
                 if(inputName.value.length < 3 && inputText.value.length < 3){
                     inputName.classList.add('error');
                     inputText.classList.add('error');
@@ -116,6 +122,17 @@ const postAPI = (inputName,inputText,commentators) => {
             }
         })
         
+}
+
+const postAddLike = (id) => {
+    return fetch(
+        `${api.URL_API}/${id}/toggle-like`,
+        {
+            method: "POST",
+            headers: {
+            Authorization: `Bearer ${myToken}`
+        }
+    })
 }
 
 const getNoRegisterAPI = (commentators) => {
@@ -225,4 +242,4 @@ const registerAPI = (loginName, name, password) => {
         
 }
 
-export {getAPI, postAPI, getNoRegisterAPI, loginAPI ,registerAPI, myName} 
+export {getAPI, postAPI, getNoRegisterAPI, postAddLike, loginAPI ,registerAPI, myName} 
